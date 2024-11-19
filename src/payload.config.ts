@@ -11,6 +11,7 @@ import Test from './collections/Test'
 import Media from './collections/Media'
 import Test2 from './collections/Test2'
 import Blog from './collections/Blog'
+import Page from './collections/HtmlRichText'
 
 export default buildConfig({
   admin: {
@@ -23,7 +24,8 @@ export default buildConfig({
     Test,
     Media,
     Test2,
-    Blog
+    Blog,
+    Page
   ],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),

@@ -2,13 +2,16 @@ import { CollectionConfig } from "payload/types";
 
 const Media: CollectionConfig = {
   upload: true,
-  slug: 'media',
+  slug: "media",
   fields: [
     {
-      name: 'text',
-      type: 'text'
-    }
-  ]
-}
+      name: "text",
+      type: "text",
+    },
+  ],
+  access: {
+    read: () => true,
+  },
+};
 
-export default Media
+export default Media;
