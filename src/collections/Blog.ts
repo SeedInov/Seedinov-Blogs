@@ -33,16 +33,10 @@ const Blog: CollectionConfig = {
         },
       ],
     },
-    // {
-    //   name: "content",
-    //   type: "richText",
-    //   required: true,
-    // },
     {
-      name: "contentPage",
-      type: "relationship",
-      relationTo: "pages", // Linking to the Pages collection
-      required: false,
+      name: "content",
+      type: "richText",
+      required: true,
     },
     {
       name: "slug",
@@ -52,7 +46,8 @@ const Blog: CollectionConfig = {
     },
     {
       name: "author",
-      type: "text",
+      type: "relationship",
+      relationTo: "authors",
       required: true,
     },
     {
