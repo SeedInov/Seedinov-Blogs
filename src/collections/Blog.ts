@@ -13,6 +13,11 @@ const Blog: CollectionConfig = {
       required: true,
     },
     {
+      name: "featured",
+      type: "checkbox",
+      label: "Featured",
+    },
+    {
       name: "Summary",
       type: "textarea",
       required: true,
@@ -57,6 +62,38 @@ const Blog: CollectionConfig = {
       required: false,
     },
   ],
+  hooks: {
+    afterChange: [
+      async ({ doc, req }) => {
+        if (doc.featured) {
+          const { payload } = req;
+          try {
+            const existingFeatured = await payload.find({
+              collection: "blogs",
+              where: {
+                featured: {
+                  equals: true,
+                },
+                id: {
+                  not_equals: doc.id,
+                },
+              },
+              limit: 1,
+            });
+            if (existingFeatured.docs.length > 0) {
+              await payload.update({
+                collection: "blogs",
+                id: existingFeatured.docs[0].id,
+                data: { featured: false },
+              });
+            }
+          } catch (error) {
+            console.error("Error clearing previous featured blog:", error);
+          }
+        }
+      },
+    ],
+  },
   access: {
     read: () => true,
   },
